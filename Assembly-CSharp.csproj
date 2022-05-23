@@ -38,7 +38,7 @@
   <ItemGroup>
      <Compile Include="Assets/unity-chan!/Unity-chan! Model/Scripts/CameraController.cs" />
      <Compile Include="Assets/unity-chan!/Unity-chan! Model/Scripts/SpringCollider.cs" />
-     <Compile Include="Assets/Scripts/Move.cs" />
+     <Compile Include="Assets/Scripts/FloatingJoystick.cs" />
      <Compile Include="Assets/unity-chan!/Unity-chan! Model/Scripts/SpringManager.cs" />
      <Compile Include="Assets/unity-chan!/Unity-chan! Model/Scripts/RandomWind.cs" />
      <Compile Include="Assets/Scripts/Character.cs" />
@@ -49,9 +49,8 @@
      <Compile Include="Assets/unity-chan!/Unity-chan! Model/Scripts/UnityChanControlScriptWithRgidBody.cs" />
      <Compile Include="Assets/unity-chan!/Unity-chan! Model/Scripts/FaceUpdate.cs" />
      <Compile Include="Assets/unity-chan!/Unity-chan! Model/SplashScreen/Scripts/SplashScreen.cs" />
-     <Compile Include="Assets/unity-chan!/Unity-chan! Model/Scripts/SpringBone.cs" />
      <Compile Include="Assets/Scripts/FixedJoystick.cs" />
-     <Compile Include="Assets/Scripts/FloatingJoystick.cs" />
+     <Compile Include="Assets/unity-chan!/Unity-chan! Model/Scripts/SpringBone.cs" />
      <None Include="Assets/unity-chan!/Unity-chan! Model/Art/UnityChanShader/Shader/Unitychan_chara_fuku.shader" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
