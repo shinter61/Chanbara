@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public Vector2 beforeMovement;
     public FixedJoystick movement;
     public FloatingJoystick cameraMovement;
     public float cameraRotateSpeed = 3.0f;
@@ -13,11 +12,12 @@ public class Character : MonoBehaviour
     private Animator animator;
     private AnimatorStateInfo stateInfo;
     private float moveSpeed = 3.0f;
+    private Vector3 beforePos;
+    private Quaternion beforeRot;
 
     // Start is called before the first frame update
     void Start()
     {
-        beforeMovement = Vector2.zero;
         characterController = GetComponent<CharacterController>();
 		animator = GetComponent<Animator>(); 
         mainCamera = GameObject.Find("Main Camera");
@@ -45,12 +45,16 @@ public class Character : MonoBehaviour
 
         stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         if (stateInfo.IsName("Idle")) { return; } // ここに到達直後はnormalizedTimeが"Idle"の経過時間を拾ってしまうので、他状態に遷移完了するまではreturnする。
-        if (stateInfo.normalizedTime > 0.9f) {
+        if (stateInfo.normalizedTime > 0.9f && stateInfo.IsName("Attack")) {
             animator.SetFloat("Attack", 0.0f);
+            transform.position = beforePos; // アニメーション終了時にカメラの中央からずれるのでここで修正
+            transform.rotation = beforeRot;
         }
     }
 
     public void Attack() {
+        beforePos = transform.position;
+        beforeRot = transform.rotation;
         animator.SetFloat("Attack", 0.2f);
     }
 }
