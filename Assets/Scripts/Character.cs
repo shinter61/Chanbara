@@ -26,6 +26,7 @@ public class Character : MonoBehaviour
     {
         animator.SetFloat("Speed", movement.Vertical);
         transform.Translate(Time.deltaTime * new Vector3(movement.Horizontal, 0, movement.Vertical) * moveSpeed);
+        mainCamera.transform.Translate(Time.deltaTime * new Vector3(movement.Horizontal, 0, movement.Vertical) * moveSpeed);
 
         Vector3 cameraRotateAngle = new Vector3(cameraMovement.Horizontal, 0, cameraMovement.Vertical);
         mainCamera.transform.RotateAround(transform.position, Vector3.up, cameraRotateAngle.x * cameraRotateSpeed);
