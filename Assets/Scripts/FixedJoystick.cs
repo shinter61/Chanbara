@@ -17,7 +17,19 @@ public class FixedJoystick : MonoBehaviour, IDragHandler, IPointerDownHandler, I
     public float Vertical  { get { return input.y; } }
     public float Horizontal  { get { return input.x; } }
 
+    private GameObject character;
+    private GameObject mainCamera;
+
+    void Start() {
+        character = GameObject.Find("unitychan");
+        mainCamera = GameObject.Find("Main Camera");
+    }
+
     public void OnPointerDown(PointerEventData eventdata) {
+        if (System.Math.Abs(character.transform.eulerAngles.y - mainCamera.transform.eulerAngles.y) > 1) {
+            Vector3 newRotation = new Vector3(0, mainCamera.transform.eulerAngles.y, 0);
+            character.transform.eulerAngles = newRotation;
+        }
         OnDrag(eventdata);
     }
 

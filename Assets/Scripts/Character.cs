@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    public Vector2 beforeMovement;
     public FixedJoystick movement;
     public FloatingJoystick cameraMovement;
     public float cameraRotateSpeed = 3.0f;
@@ -11,22 +12,32 @@ public class Character : MonoBehaviour
     private CharacterController characterController;
     private Animator animator;
     private AnimatorStateInfo stateInfo;
-    private float moveSpeed = 1.0f;
+    private float moveSpeed = 3.0f;
 
     // Start is called before the first frame update
     void Start()
     {
+        beforeMovement = Vector2.zero;
         characterController = GetComponent<CharacterController>();
 		animator = GetComponent<Animator>(); 
         mainCamera = GameObject.Find("Main Camera");
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         animator.SetFloat("Speed", movement.Vertical);
-        transform.Translate(Time.deltaTime * new Vector3(movement.Horizontal, 0, movement.Vertical) * moveSpeed);
-        mainCamera.transform.Translate(Time.deltaTime * new Vector3(movement.Horizontal, 0, movement.Vertical) * moveSpeed);
+        Vector3 moveVec = Time.deltaTime * new Vector3(movement.Horizontal, 0, movement.Vertical) * moveSpeed;
+        transform.Translate(moveVec);
+        mainCamera.transform.Translate(moveVec);
+
+        // 二本指がPCで使えないので、開発中のみ左右キーでカメラを移動する
+		float h = Input.GetAxis ("Horizontal");				// 入力デバイスの水平軸をhで定義
+        mainCamera.transform.RotateAround(transform.position, Vector3.up, h * cameraRotateSpeed);
+        if (h != 0) {
+            Vector3 newRotation = new Vector3(0, mainCamera.transform.eulerAngles.y, 0);
+            transform.eulerAngles = newRotation;
+        }
 
         Vector3 cameraRotateAngle = new Vector3(cameraMovement.Horizontal, 0, cameraMovement.Vertical);
         mainCamera.transform.RotateAround(transform.position, Vector3.up, cameraRotateAngle.x * cameraRotateSpeed);
