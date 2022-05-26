@@ -8,7 +8,7 @@ public class Character : MonoBehaviour
     public FloatingJoystick cameraMovement;
     public float cameraRotateSpeed = 3.0f;
     private GameObject mainCamera;
-    private CharacterController characterController;
+    private Vector3 offset;
     private Animator animator;
     private AnimatorStateInfo stateInfo;
     private float moveSpeed = 3.0f;
@@ -18,9 +18,9 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        characterController = GetComponent<CharacterController>();
 		animator = GetComponent<Animator>(); 
         mainCamera = GameObject.Find("Main Camera");
+        offset = transform.position - mainCamera.transform.position;
     }
 
     // Update is called once per frame
@@ -29,12 +29,13 @@ public class Character : MonoBehaviour
         animator.SetFloat("Speed", movement.Vertical);
         Vector3 moveVec = Time.deltaTime * new Vector3(movement.Horizontal, 0, movement.Vertical) * moveSpeed;
         transform.Translate(moveVec);
-        mainCamera.transform.Translate(moveVec);
+        mainCamera.transform.position = transform.position - offset;
 
         // 二本指がPCで使えないので、開発中のみ左右キーでカメラを移動する
 		float h = Input.GetAxis ("Horizontal");				// 入力デバイスの水平軸をhで定義
-        mainCamera.transform.RotateAround(transform.position, Vector3.up, h * cameraRotateSpeed);
         if (h != 0) {
+            mainCamera.transform.RotateAround(transform.position, Vector3.up, h * cameraRotateSpeed);
+            offset = transform.position - mainCamera.transform.position;
             Vector3 newRotation = new Vector3(0, mainCamera.transform.eulerAngles.y, 0);
             transform.eulerAngles = newRotation;
         }
