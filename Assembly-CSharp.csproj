@@ -55,6 +55,7 @@
      <Compile Include="Assets/Scripts/HPUIRotate.cs" />
      <Compile Include="Assets/Scripts/EnemyStatus.cs" />
      <Compile Include="Assets/Scripts/WeaponStatus.cs" />
+     <Compile Include="Assets/Starfield Skybox/Demo/Script/LookCamera.cs" />
      <None Include="Assets/unity-chan!/Unity-chan! Model/Art/UnityChanShader/Shader/Unitychan_chara_fuku.shader" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
